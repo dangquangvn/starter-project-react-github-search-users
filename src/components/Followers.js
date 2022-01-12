@@ -4,10 +4,6 @@ import styled from "styled-components";
 
 const Followers = () => {
   const { githubFollowers } = useGlobalContext();
-  console.log(
-    "🚀TCL: ~ file: Followers.js ~ line 7 ~ Followers ~ githubFollowers",
-    githubFollowers
-  );
   return (
     <Wrapper>
       <div className='followers'>

@@ -31,7 +31,7 @@ ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
 // STEP 5 - Convert to Functional Component
 const ExampleChart = ({ data }) => {
   const chartConfigs = {
-    type: "column2d", // The chart type
+    type: "pie2d", // The chart type
     width: "400", // Width of the chart
     height: "400", // Height of the chart
     dataFormat: "json", // Data type
@@ -39,14 +39,14 @@ const ExampleChart = ({ data }) => {
       // Chart Configuration
       chart: {
         //Set the chart caption
-        caption: "Countries With Most Oil Reserves [2017-18]",
+        caption: "Languages",
         //Set the chart subcaption
-        subCaption: "In MMbbl = One Million barrels",
+        // subCaption: "In MMbbl = One Million barrels",
         //Set the x-axis name
         xAxisName: "Country",
         //Set the y-axis name
         yAxisName: "Reserves (MMbbl)",
-        numberSuffix: "K",
+        numberSuffix: "%",
         //Set the theme for your chart
         theme: "fusion",
       },
