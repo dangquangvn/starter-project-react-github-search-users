@@ -6,10 +6,6 @@ import { countItems } from "../utils";
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
   const { githubRepos } = useGlobalContext();
-  console.log(
-    "🚀TCL: ~ file: Repos.js ~ line 8 ~ Repos ~ githubRepos",
-    githubRepos
-  );
   /**
    *  [
         {
@@ -29,7 +25,7 @@ const Repos = () => {
   // const mostLanguages = githubRepos.reduce((acc,cur)=>{
 
   // },{})
-  // todo: method 1
+  // todo: method 1 -> using forEach
   // let mostLanguages = [];
   // const key = "language";
   // const value = "value";
@@ -50,39 +46,58 @@ const Repos = () => {
   //   );
   // });
 
-  // todo: method 2
-  let mostLanguages = [];
-  const keyData = "language";
-  const key = "label";
-  const value = "value";
-  mostLanguages = githubRepos.reduce((acc, curr) => {
-    const keyTemp = curr[keyData]; // javascript
-    if (!keyTemp) return acc;
-    const index = acc.findIndex((item) => {
-      console.log(
-        `item[key]: ${item[key]} ${
-          /*acc[0][label] == javascript */ " "
-        }, keyTemp: ${keyTemp} ${/*javascript*/ " "}`
-      );
-      return item[key] === keyTemp;
-    });
-    console.log(`index: ${index}`);
-    if (index > -1) {
-      ++acc[index].value; // 1 --> 2
-    } else {
-      let obj = {};
-      obj[key] = keyTemp;
-      obj[value] = 1;
-      acc.push(obj);
-    }
-    console.log(`acc --> ${JSON.stringify(acc)}`);
-    return acc;
+  // todo: method 2 -> using reduce
+  // let mostLanguages = [];
+  // const keyData = "language";
+  // const key = "label";
+  // const value = "value";
+  // mostLanguages = githubRepos.reduce((acc, curr) => {
+  //   const keyTemp = curr[keyData]; // javascript
+  //   if (!keyTemp) return acc;
+  //   const index = acc.findIndex((item) => {
+  //     console.log(
+  //       `item[key]: ${item[key]} ${
+  //         /*acc[0][label] == javascript */ " "
+  //       }, keyTemp: ${keyTemp} ${/*javascript*/ " "}`
+  //     );
+  //     return item[key] === keyTemp;
+  //   });
+  //   console.log(`index: ${index}`);
+  //   if (index > -1) {
+  //     ++acc[index].value; // 1 --> 2
+  //   } else {
+  //     let obj = {};
+  //     obj[key] = keyTemp;
+  //     obj[value] = 1;
+  //     acc.push(obj);
+  //   }
+  //   console.log(`acc --> ${JSON.stringify(acc)}`);
+  //   return acc;
 
-    // return acc[keyTemp] ? ++acc[keyTemp] : (acc[keyTemp] = 1), acc;
-  }, []);
+  //   // return acc[keyTemp] ? ++acc[keyTemp] : (acc[keyTemp] = 1), acc;
+  // }, []);
 
   //todo: method 3: using function
   // const mostLanguages = countItems(githubRepos, "language", "label", "value");
+
+  //todo: method 4: tutorial by john smilga
+  let mostLanguages = githubRepos.reduce((total, item) => {
+    const { language } = item;
+    if (!language) return total;
+    if (!total[language]) {
+      total[language] = { label: language, value: 1 };
+    } else {
+      // ++total[language];
+      total[language] = {
+        ...total[language],
+        value: total[language].value + 1,
+      };
+    }
+    return total;
+  }, {});
+  mostLanguages = Object.values(mostLanguages)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
   console.log(
     "🚀TCL: ~ file: Repos.js ~ line 32 ~ Repos ~ mostLanguages",
     mostLanguages
@@ -105,7 +120,7 @@ const Repos = () => {
   return (
     <section className='section'>
       <Wrapper className='section-center'>
-        <ExampleChart data={mostLanguages} />
+        <Pie3D data={mostLanguages} />
       </Wrapper>
     </section>
   );

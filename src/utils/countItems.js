@@ -1,5 +1,14 @@
+/**
+ *
+ * @param {array} array : source data -> githubRepos
+ * @param {*} keyData : key want to get from data -> 'language'
+ * @param {*} customKey -> 'label'
+ * @param {*} customValue -> 'value'
+ * @returns object of array
+ * keyTemp = curr[keyData] = item[customKey] -> javascript
+ *
+ */
 export const countItems = (array, keyData, customKey, customValue) => {
-  // mostLanguages = githubRepos.reduce((acc, curr) => {
   return array.reduce((acc, curr) => {
     const keyTemp = curr[keyData]; // javascript
     if (!keyTemp) return acc;
