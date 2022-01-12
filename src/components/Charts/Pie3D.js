@@ -10,7 +10,7 @@ ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
 const Pie3D = ({ data }) => {
   const chartConfigs = {
     type: "pie3d",
-    width: "400",
+    width: "100%",
     height: "400",
     dataFormat: "json",
     dataSource: {
