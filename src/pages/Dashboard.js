@@ -10,6 +10,7 @@ const Dashboard = () => {
       <Navbar />
       <Info />
       <User />
+      <Repos />
       {/* <h2>Dashboard Page</h2> */}
     </main>
   );
