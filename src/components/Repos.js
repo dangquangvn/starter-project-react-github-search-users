@@ -3,10 +3,26 @@ import styled from "styled-components";
 import { GithubContext } from "../context/context";
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
+  const chartData = [
+    {
+      label: "HTML",
+      value: "10",
+    },
+    {
+      label: "CSS",
+      value: "58",
+    },
+    {
+      label: "Javascript",
+      value: "40",
+    },
+  ];
   return (
-    <>
-      <ExampleChart />
-    </>
+    <section className='section'>
+      <Wrapper className='section-center'>
+        <ExampleChart data={chartData} />
+      </Wrapper>
+    </section>
   );
 };
 
