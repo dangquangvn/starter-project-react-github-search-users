@@ -139,12 +139,49 @@ const Repos = () => {
     languagesObj
   );
 
+  //& top 5 used languages
   const mostUsedLanguage = Object.values(languagesObj)
     .sort((a, b) => b.value - a.value)
     .slice(0, 5);
+  //& top 5 popular languages
   const mostPopularLanguage = Object.values(languagesObj)
     .map((item) => ({ ...item, value: item.stars }))
     .slice(0, 5);
+  // //& top 5 stars repos
+  // const mostStarsRepos = githubRepos
+  //   .sort((a, b) => b.stargazers_count - a.stargazers_count)
+  //   .slice(0, 5)
+  //   .map((item) => ({ label: item.name, value: item.stargazers_count }));
+  // //& top 5 forked repos
+  // const mostForksRepos = githubRepos
+  //   .sort((a, b) => b.forks_count - a.forks_count)
+  //   .slice(0, 5)
+  //   .map((item) => ({ label: item.name, value: item.forks_count }));
+
+  //todo: stars & forked repos tutorial by john smilga
+  let { stars, forks } = githubRepos.reduce(
+    (total, item) => {
+      const { stargazers_count, name, forks } = item;
+      total.stars[name] = { label: item.name, value: item.stargazers_count };
+      total.forks[name] = { label: item.name, value: item.forks };
+      return total;
+    },
+    { stars: {}, forks: {} }
+  );
+  // stars = Object.values(stars).slice(-5).reverse();
+  stars = Object.values(stars)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+
+  forks = Object.values(forks)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+  console.log(
+    "🚀TCL: ~ file: Repos.js ~ line 178 ~ Repos ~ stars",
+    stars,
+    "forks:",
+    forks
+  );
 
   const chartData = [
     {
@@ -158,15 +195,16 @@ const Repos = () => {
     {
       label: "Javascript",
       value: "40",
+      color: "#e44a00",
     },
   ];
   return (
     <section className='section'>
       <Wrapper className='section-center'>
         <Pie3D data={mostUsedLanguage} />
-        <div className=''></div>
+        <Column3D data={stars} />
         <Doughnut2D data={mostPopularLanguage} />
-        <div className=''></div>
+        <Bar3D data={forks} />
       </Wrapper>
     </section>
   );
