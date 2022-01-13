@@ -10,6 +10,7 @@ const Search = () => {
     handleSubmit,
     requests,
     error,
+    isLoading,
   } = useGlobalContext();
 
   return (
@@ -35,7 +36,7 @@ const Search = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          {requests > 0 && <button type='submit'>search</button>}
+          {requests > 0 && !isLoading && <button type='submit'>search</button>}
         </form>
         <h3>request: {requests}/60</h3>
       </Wrapper>
