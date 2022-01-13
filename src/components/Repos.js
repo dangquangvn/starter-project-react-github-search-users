@@ -80,28 +80,71 @@ const Repos = () => {
   //todo: method 3: using function
   // const mostLanguages = countItems(githubRepos, "language", "label", "value");
 
-  //todo: method 4: tutorial by john smilga
-  let mostLanguages = githubRepos.reduce((total, item) => {
-    const { language } = item;
+  //todo: method 4: Most Used Language tutorial by john smilga
+  // let mostLanguages = githubRepos.reduce((total, item) => {
+  //   const { language } = item;
+  //   if (!language) return total;
+  //   if (!total[language]) {
+  //     total[language] = { label: language, value: 1 };
+  //   } else {
+  //     // ++total[language];
+  //     total[language] = {
+  //       ...total[language],
+  //       value: total[language].value + 1,
+  //     };
+  //   }
+  //   return total;
+  // }, {});
+  // mostLanguages = Object.values(mostLanguages)
+  //   .sort((a, b) => b.value - a.value)
+  //   .slice(0, 5);
+
+  //todo: star per language
+  // let starPerLang = githubRepos.reduce((total, item) => {
+  //   const { language, stargazers_count } = item;
+  //   if (!language) return total;
+  //   if (!total[language]) {
+  //     total[language] = { label: language, value: stargazers_count };
+  //   } else {
+  //     total[language] = {
+  //       ...total[language],
+  //       value: total[language].value + stargazers_count,
+  //     };
+  //   }
+  //   return total;
+  // }, {});
+  // starPerLang = Object.values(starPerLang)
+  //   .sort((a, b) => b.value - a.value)
+  //   // .map((item) => ({ ...item, value: item.value.toString() }))
+  //   .slice(0, 5);
+
+  //todo: combine mostUsedLang with mostPopularLang
+  const languagesObj = githubRepos.reduce((total, item) => {
+    const { language, stargazers_count } = item;
     if (!language) return total;
     if (!total[language]) {
-      total[language] = { label: language, value: 1 };
+      total[language] = { label: language, value: 1, stars: stargazers_count };
     } else {
-      // ++total[language];
       total[language] = {
         ...total[language],
         value: total[language].value + 1,
+        stars: total[language].stars + stargazers_count,
+        // value: total[language].value + stargazers_count,
       };
     }
     return total;
   }, {});
-  mostLanguages = Object.values(mostLanguages)
+  console.log(
+    "🚀TCL: ~ file: Repos.js ~ line 135 ~ languagesObj ~ languagesObj",
+    languagesObj
+  );
+
+  const mostUsedLanguage = Object.values(languagesObj)
     .sort((a, b) => b.value - a.value)
     .slice(0, 5);
-  console.log(
-    "🚀TCL: ~ file: Repos.js ~ line 32 ~ Repos ~ mostLanguages",
-    mostLanguages
-  );
+  const mostPopularLanguage = Object.values(languagesObj)
+    .map((item) => ({ ...item, value: item.stars }))
+    .slice(0, 5);
 
   const chartData = [
     {
@@ -120,7 +163,10 @@ const Repos = () => {
   return (
     <section className='section'>
       <Wrapper className='section-center'>
-        <Pie3D data={mostLanguages} />
+        <Pie3D data={mostUsedLanguage} />
+        <div className=''></div>
+        <Doughnut2D data={mostPopularLanguage} />
+        <div className=''></div>
       </Wrapper>
     </section>
   );
