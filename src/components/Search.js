@@ -1,9 +1,46 @@
-import React from 'react';
-import styled from 'styled-components';
-import { MdSearch } from 'react-icons/md';
-import { GithubContext } from '../context/context';
+import React from "react";
+import styled from "styled-components";
+import { MdSearch } from "react-icons/md";
+import { GithubContext, useGlobalContext } from "../context/context";
 const Search = () => {
-  return <h2>search component</h2>;
+  const {
+    searchQuery,
+    setSearchQuery,
+    handleSearch,
+    handleSubmit,
+    requests,
+    error,
+  } = useGlobalContext();
+
+  return (
+    <section className='section'>
+      <Wrapper className='section-center'>
+        {error.show && (
+          <ErrorWrapper>
+            <p>{error.msg}</p>
+          </ErrorWrapper>
+        )}
+        <form
+          action=''
+          className='form-control'
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          <label htmlFor='github-user'>
+            <MdSearch />
+          </label>
+          <input
+            type='text'
+            id='github-user'
+            placeholder='enter github user'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {requests > 0 && <button type='submit'>search</button>}
+        </form>
+        <h3>request: {requests}/60</h3>
+      </Wrapper>
+    </section>
+  );
 };
 
 const Wrapper = styled.div`

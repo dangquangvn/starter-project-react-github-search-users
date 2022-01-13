@@ -134,10 +134,6 @@ const Repos = () => {
     }
     return total;
   }, {});
-  console.log(
-    "🚀TCL: ~ file: Repos.js ~ line 135 ~ languagesObj ~ languagesObj",
-    languagesObj
-  );
 
   //& top 5 used languages
   const mostUsedLanguage = Object.values(languagesObj)
