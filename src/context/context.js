@@ -59,7 +59,45 @@ const AppProvider = ({ children }) => {
         "🚀TCL: ~ file: context.js ~ line 58 ~ fetchUser ~ response",
         response
       );
-      setGithubUser(response.data);
+      const { followers_url, login } = response.data;
+
+      // const repos = await axios
+      // - [Repos](https://api.github.com/users/john-smilga/repos?per_page=100)
+      // - [Followers](https://api.github.com/users/john-smilga/followers)
+      //= METHOD 1: flow: when get res DONE -> fetch repos DONE -> fetch forks
+      // repos and forks could get separately
+      // const repos = await axios.get(
+      //   `${rootUrl}/users/${login}/repos?per_page=100`
+      // );
+      // setGithubRepos(repos.data);
+      // const forks = await axios.get(followers_url);
+      // setGithubFollowers(forks.data);
+      // setGithubUser(response.data);
+      //= METHOD 2: use Promise.allSettled
+      /**
+       * COMPARE: Promise.all vs Promise.allSettled
+       */
+      const [repos, followers] = await Promise.allSettled([
+        //& DO NOT use await in Promise.all
+        // put that outside instead, because await convert promise into object
+        /*await*/ axios.get(`${rootUrl}/users/${login}/repos?per_page=100`),
+        /*await*/ axios.get(followers_url),
+      ]);
+      console.log(
+        "🚀TCL: ~ file: context.js ~ line 86 ~ fetchUser ~ repos",
+        repos
+      );
+      console.log(
+        "🚀TCL: ~ file: context.js ~ line 81 ~ fetchUser ~ followers",
+        followers
+      );
+      const status = "fulfilled";
+      if (repos.status === status) {
+        setGithubRepos(repos.value.data);
+      }
+      if (followers.status === status) {
+        setGithubFollowers(followers.value.data);
+      }
       setLoading(false);
     } catch (error) {
       toggleError(true, "There Is No User With That Username");
