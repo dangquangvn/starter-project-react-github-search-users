@@ -12,7 +12,6 @@ const rootUrl = "https://api.github.com";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  console.log("test", process.env.REACT_APP_DOMAIN);
   const [githubUser, setGithubUser] = useState(mockUser);
   const [githubRepos, setGithubRepos] = useState(mockRepos);
   const [githubFollowers, setGithubFollowers] = useState(mockFollowers);
@@ -20,10 +19,6 @@ const AppProvider = ({ children }) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState({ show: false, msg: "" });
   const [requests, setRequests] = useState(60);
-  console.log(
-    "🚀TCL: ~ file: context.js ~ line 20 ~ AppProvider ~ requests",
-    requests
-  );
   // search
   const [searchQuery, setSearchQuery] = useState("");
   const [isWaiting, setWaiting] = useState(true);
@@ -41,10 +36,6 @@ const AppProvider = ({ children }) => {
       },
     } = await axios.get(`${rootUrl}/rate_limit`);
     setRequests(remaining);
-    console.log(
-      "🚀TCL: ~ file: context.js ~ line 37 ~ checkRequests ~ remaining",
-      remaining
-    );
     if (remaining === 0) {
       setError({
         show: true,
@@ -58,12 +49,8 @@ const AppProvider = ({ children }) => {
     toggleError();
     try {
       const response = await axios.get(url);
-      console.log(
-        "🚀TCL: ~ file: context.js ~ line 58 ~ fetchUser ~ response",
-        response
-      );
       const { followers_url, login } = response.data;
-
+      setGithubUser(response.data);
       // const repos = await axios
       // - [Repos](https://api.github.com/users/john-smilga/repos?per_page=100)
       // - [Followers](https://api.github.com/users/john-smilga/followers)
@@ -86,14 +73,6 @@ const AppProvider = ({ children }) => {
         /*await*/ axios.get(`${rootUrl}/users/${login}/repos?per_page=100`),
         /*await*/ axios.get(followers_url),
       ]);
-      console.log(
-        "🚀TCL: ~ file: context.js ~ line 86 ~ fetchUser ~ repos",
-        repos
-      );
-      console.log(
-        "🚀TCL: ~ file: context.js ~ line 81 ~ fetchUser ~ followers",
-        followers
-      );
       const status = "fulfilled";
       if (repos.status === status) {
         setGithubRepos(repos.value.data);
@@ -102,10 +81,12 @@ const AppProvider = ({ children }) => {
         setGithubFollowers(followers.value.data);
       }
       setLoading(false);
+      checkRequests();
     } catch (error) {
       toggleError(true, "There Is No User With That Username");
       console.log("async catch", error);
       setLoading(false);
+      checkRequests();
     }
   };
 

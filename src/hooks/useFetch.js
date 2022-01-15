@@ -18,10 +18,6 @@ function useFetch(url, timeout) {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(
-        "🚀TCL: ~ file: useFetch.js ~ line 15 ~ fetchData ~ data",
-        data
-      );
 
       // setData(data.hits);
       setData(data);

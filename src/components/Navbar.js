@@ -7,7 +7,6 @@ dotenv.config();
 
 const Navbar = () => {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
-  console.log("🚀TCL: ~ file: Navbar.js ~ line 8 ~ Navbar ~ user", user);
   if (isLoading) {
     return <div>Loading ...</div>;
   }
