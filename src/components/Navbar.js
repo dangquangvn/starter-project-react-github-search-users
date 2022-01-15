@@ -1,9 +1,34 @@
 import React from "react";
 import styled from "styled-components";
+import { loginImg } from "../images/login-img.svg";
 import { useAuth0 } from "@auth0/auth0-react";
+import dotenv from "dotenv";
+dotenv.config();
 
 const Navbar = () => {
-  return <Wrapper>navbar component</Wrapper>;
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  console.log("🚀TCL: ~ file: Navbar.js ~ line 8 ~ Navbar ~ user", user);
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+  return (
+    <>
+      {isAuthenticated && (
+        <Wrapper>
+          <img src={user.picture} alt={user.name} />
+          <h4>
+            Welcome, <strong>{user.name}</strong>
+          </h4>
+          <button
+            onClick={() => logout({ returnTo: process.env.REACT_APP_URL })}
+          >
+            log out
+          </button>
+        </Wrapper>
+      )}
+      {!isAuthenticated && <h1>Navbar not Log in</h1>}
+    </>
+  );
 };
 
 const Wrapper = styled.nav`

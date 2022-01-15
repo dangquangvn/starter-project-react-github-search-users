@@ -5,11 +5,14 @@ import mockFollowers from "./mockData.js/mockFollowers";
 import axios from "axios";
 import useFetch from "../hooks/useFetch";
 
+import dotenv from "dotenv";
+dotenv.config();
 const rootUrl = "https://api.github.com";
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
+  console.log("test", process.env.REACT_APP_DOMAIN);
   const [githubUser, setGithubUser] = useState(mockUser);
   const [githubRepos, setGithubRepos] = useState(mockRepos);
   const [githubFollowers, setGithubFollowers] = useState(mockFollowers);
