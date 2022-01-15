@@ -26,6 +26,8 @@ const Bar3D = ({ data }) => {
         showPercentValues: 0, //show value instead of percentage
         xAxisName: "Repos",
         yAxisName: "Forked",
+        paletteColors:
+          "#2caeba, #5D62B5, #FFC533, #F2726F, #8d6e63, #1de9b6, #6E80CA",
       },
       // Chart Data
       data,

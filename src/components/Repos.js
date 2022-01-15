@@ -170,13 +170,13 @@ const Repos = () => {
   console.log("🚀TCL: ~ file: Repos.js ~ line 170 ~ Repos ~ color", color);
   stars = Object.values(stars)
     .sort((a, b) => b.value - a.value)
-    .slice(0, 5)
-    .map((item, index) => ({ ...item, color: color[index] }));
+    .slice(0, 5);
+  // .map((item, index) => ({ ...item, color: color[index] }));
 
   forks = Object.values(forks)
     .sort((a, b) => b.value - a.value)
-    .slice(0, 5)
-    .map((item, index) => ({ ...item, color: color[index] }));
+    .slice(0, 5);
+  // .map((item, index) => ({ ...item, color: color[index] }));
   // console.log(
   //   "🚀TCL: ~ file: Repos.js ~ line 178 ~ Repos ~ stars",
   //   stars,

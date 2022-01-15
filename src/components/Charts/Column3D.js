@@ -24,6 +24,8 @@ const Column3D = ({ data }) => {
         yAxisName: "Stars",
         xAxisNameFontSize: "16px",
         yAxisNameFontSize: "16px",
+        paletteColors:
+          "#2caeba, #5D62B5, #FFC533, #F2726F, #8d6e63, #1de9b6, #6E80CA",
       },
       // Chart Data
       data,
