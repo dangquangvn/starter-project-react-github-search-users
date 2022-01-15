@@ -18,8 +18,8 @@ const Doughnut2d = ({ data }) => {
     dataSource: {
       chart: {
         caption: "Stars Per Language",
-        // theme: "fusion",
-        theme: "candy",
+        theme: "fusion",
+        // theme: "candy",
         decimals: 0, // display decinal or not [ 0 or 1 (default) ]
         doughnutRadius: "45%",
         // paletteColors: "green" // // repeated color

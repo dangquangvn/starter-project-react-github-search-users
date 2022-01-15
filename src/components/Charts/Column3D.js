@@ -18,7 +18,7 @@ const Column3D = ({ data }) => {
     dataSource: {
       chart: {
         caption: "Most Popular",
-        // theme: "fusion",
+        theme: "fusion",
         // decimals: 0, // display decinal or not [ 0 or 1 (default) ]
         xAxisName: "Repos",
         yAxisName: "Stars",

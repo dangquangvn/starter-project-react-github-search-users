@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { GithubContext, useGlobalContext } from "../context/context";
 import { countItems } from "../utils";
+import { COLOR } from "../utils/constant";
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
   const { githubRepos } = useGlobalContext();
@@ -165,19 +166,23 @@ const Repos = () => {
     { stars: {}, forks: {} }
   );
   // stars = Object.values(stars).slice(-5).reverse();
+  const color = Object.values(COLOR);
+  console.log("🚀TCL: ~ file: Repos.js ~ line 170 ~ Repos ~ color", color);
   stars = Object.values(stars)
     .sort((a, b) => b.value - a.value)
-    .slice(0, 5);
+    .slice(0, 5)
+    .map((item, index) => ({ ...item, color: color[index] }));
 
   forks = Object.values(forks)
     .sort((a, b) => b.value - a.value)
-    .slice(0, 5);
-  console.log(
-    "🚀TCL: ~ file: Repos.js ~ line 178 ~ Repos ~ stars",
-    stars,
-    "forks:",
-    forks
-  );
+    .slice(0, 5)
+    .map((item, index) => ({ ...item, color: color[index] }));
+  // console.log(
+  //   "🚀TCL: ~ file: Repos.js ~ line 178 ~ Repos ~ stars",
+  //   stars,
+  //   "forks:",
+  //   forks
+  // );
 
   const chartData = [
     {
