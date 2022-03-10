@@ -102,7 +102,7 @@ const AppProvider = ({ children }) => {
 
   const handleSearch = (value) => {
     setSearchQuery(value);
-    console.log(value);
+    // console.log(value);
   };
 
   const handleSubmit = (e) => {

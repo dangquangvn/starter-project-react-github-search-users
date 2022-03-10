@@ -167,7 +167,7 @@ const Repos = () => {
   );
   // stars = Object.values(stars).slice(-5).reverse();
   const color = Object.values(COLOR);
-  console.log("🚀TCL: ~ file: Repos.js ~ line 170 ~ Repos ~ color", color);
+  // console.log("🚀TCL: ~ file: Repos.js ~ line 170 ~ Repos ~ color", color);
   stars = Object.values(stars)
     .sort((a, b) => b.value - a.value)
     .slice(0, 5);
